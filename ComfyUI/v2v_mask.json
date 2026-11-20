@@ -1,0 +1,278 @@
+{
+  "3": {
+    "inputs": {
+      "seed": 1,
+      "steps": 20,
+      "cfg": 4,
+      "sampler_name": "uni_pc",
+      "scheduler": "simple",
+      "denoise": 1,
+      "model": [
+        "48",
+        0
+      ],
+      "positive": [
+        "49",
+        0
+      ],
+      "negative": [
+        "49",
+        1
+      ],
+      "latent_image": [
+        "49",
+        2
+      ]
+    },
+    "class_type": "KSampler",
+    "_meta": {
+      "title": "KSampler"
+    }
+  },
+  "6": {
+    "inputs": {
+      "text": "Fixed CCTV camera view of a person running across a pedestrian area, realistic daytime surveillance footage.",
+      "clip": [
+        "38",
+        0
+      ]
+    },
+    "class_type": "CLIPTextEncode",
+    "_meta": {
+      "title": "CLIP Text Encode (Positive Prompt)"
+    }
+  },
+  "7": {
+    "inputs": {
+      "text": "camera shake, handheld camera, panning, tilting, zooming, moving camera, motion blur, blurry, low resolution, deformed limbs, unnatural pose, static pose, walking instead of running, wrong direction, crowded scene, multiple people, text watermark, artifacts, low quality, overexposed, underexposed, cartoon, anime, foggy, hazy, grainy, noisy image, film grain, compression artifacts, night scene, dark lighting, low light, lens flare, dust on lens, surveillance artifacts",
+      "clip": [
+        "38",
+        0
+      ]
+    },
+    "class_type": "CLIPTextEncode",
+    "_meta": {
+      "title": "CLIP Text Encode (Negative Prompt)"
+    }
+  },
+  "8": {
+    "inputs": {
+      "samples": [
+        "58",
+        0
+      ],
+      "vae": [
+        "39",
+        0
+      ]
+    },
+    "class_type": "VAEDecode",
+    "_meta": {
+      "title": "VAE Decode"
+    }
+  },
+  "37": {
+    "inputs": {
+      "unet_name": "wan2.1_vace_14B_fp16.safetensors",
+      "weight_dtype": "fp8_e4m3fn"
+    },
+    "class_type": "UNETLoader",
+    "_meta": {
+      "title": "UNet Loader"
+    }
+  },
+  "38": {
+    "inputs": {
+      "clip_name": "umt5_xxl_fp8_e4m3fn_scaled.safetensors",
+      "type": "wan",
+      "device": "default"
+    },
+    "class_type": "CLIPLoader",
+    "_meta": {
+      "title": "CLIP Loader"
+    }
+  },
+  "39": {
+    "inputs": {
+      "vae_name": "wan_2.1_vae.safetensors"
+    },
+    "class_type": "VAELoader",
+    "_meta": {
+      "title": "VAE Loader"
+    }
+  },
+  "48": {
+    "inputs": {
+      "shift": 8.000000000000002,
+      "model": [
+        "37",
+        0
+      ]
+    },
+    "class_type": "ModelSamplingSD3",
+    "_meta": {
+      "title": "Sampling Algorithm (SD3)"
+    }
+  },
+  "49": {
+    "inputs": {
+      "width": 720,
+      "height": 720,
+      "length": 49,
+      "batch_size": 1,
+      "strength": 1,
+      "positive": [
+        "6",
+        0
+      ],
+      "negative": [
+        "7",
+        0
+      ],
+      "vae": [
+        "39",
+        0
+      ],
+      "control_video": [
+        "72",
+        0
+      ],
+      "control_masks": [
+        "111",
+        0
+      ],
+      "reference_image": [
+        "73",
+        0
+      ]
+    },
+    "class_type": "WanVaceToVideo",
+    "_meta": {
+      "title": "WanVaceToVideo"
+    }
+  },
+  "58": {
+    "inputs": {
+      "trim_amount": [
+        "49",
+        3
+      ],
+      "samples": [
+        "3",
+        0
+      ]
+    },
+    "class_type": "TrimVideoLatent",
+    "_meta": {
+      "title": "TrimVideoLatent"
+    }
+  },
+  "68": {
+    "inputs": {
+      "fps": 16,
+      "images": [
+        "8",
+        0
+      ]
+    },
+    "class_type": "CreateVideo",
+    "_meta": {
+      "title": "Create Video"
+    }
+  },
+  "69": {
+    "inputs": {
+      "filename_prefix": "video/ComfyUI",
+      "format": "auto",
+      "codec": "auto",
+      "video": [
+        "68",
+        0
+      ]
+    },
+    "class_type": "SaveVideo",
+    "_meta": {
+      "title": "Save Video"
+    }
+  },
+  "72": {
+    "inputs": {
+      "video": [
+        "106",
+        0
+      ]
+    },
+    "class_type": "GetVideoComponents",
+    "_meta": {
+      "title": "Get Video Components"
+    }
+  },
+  "73": {
+    "inputs": {
+      "image": "example_background.png"
+    },
+    "class_type": "LoadImage",
+    "_meta": {
+      "title": "Load Image"
+    }
+  },
+  "76": {
+    "inputs": {
+      "preview": "",
+      "previewMode": null,
+      "source": [
+        "106",
+        0
+      ]
+    },
+    "class_type": "PreviewAny",
+    "_meta": {
+      "title": "Preview"
+    }
+  },
+  "106": {
+    "inputs": {
+      "file": "example_composite.mp4",
+      "video-preview": ""
+    },
+    "class_type": "LoadVideo",
+    "_meta": {
+      "title": "Load Video"
+    }
+  },
+  "109": {
+    "inputs": {
+      "file": "example_mask.mp4",
+      "video-preview": ""
+    },
+    "class_type": "LoadVideo",
+    "_meta": {
+      "title": "Load Control Mask Video (grayscale)"
+    }
+  },
+  "110": {
+    "inputs": {
+      "video": [
+        "109",
+        0
+      ]
+    },
+    "class_type": "GetVideoComponents",
+    "_meta": {
+      "title": "Get Video Components"
+    }
+  },
+  "111": {
+    "inputs": {
+      "channel": "red",
+      "image": [
+        "110",
+        0
+      ]
+    },
+    "class_type": "ImageToMask",
+    "_meta": {
+      "title": "Image to Mask"
+    }
+  }
+}

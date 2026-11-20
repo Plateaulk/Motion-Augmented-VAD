@@ -1,0 +1,29 @@
+{
+  "name": "vad-system-frontend",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "@element-plus/icons-vue": "^2.3.1",
+    "axios": "^1.6.2",
+    "echarts": "^6.1.0",
+    "element-plus": "^2.4.4",
+    "vue": "^3.4.0",
+    "vue-echarts": "^8.3.1",
+    "vue-router": "^4.2.5"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-vue": "^6.0.9",
+    "unplugin-auto-import": "^0.17.3",
+    "unplugin-vue-components": "^0.26.0",
+    "vite": "^8.3.1"
+  },
+  "engines": {
+    "node": ">=22.12.0"
+  }
+}

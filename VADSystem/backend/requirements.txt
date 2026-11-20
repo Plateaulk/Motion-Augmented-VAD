@@ -1,0 +1,7 @@
+-r ../../ProDisc-VAD/requirements.txt
+Flask>=3.1,<4
+Flask-Cors>=5,<7
+Flask-SQLAlchemy>=3.1,<4
+PyJWT>=2.10,<3
+websocket-client>=1.8,<2
+psutil>=6,<8
